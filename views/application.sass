@@ -1,0 +1,113 @@
+body
+  margin: 0
+  padding: 0
+  text-shadow: 0 0 1.5px black
+  font-family: sans-serif
+  color: white
+  background: #222
+  word-wrap: break-word
+
+h1,h2,h3,h4,h5,h6,p,b,i,pre,code
+  margin:  0.3em
+
+p
+  font-weight: bold
+  font-size: 1.4em
+
+hr
+  color: gray
+  border-style: solid
+  box-shadow: 0 0 1px black
+
+#container
+  margin: 0 auto
+  width: 70%
+
+#cube_container
+  overflow: hidden
+
+#cube
+  float: left
+  margin: 0.2em
+  padding: 1em
+  width: 24em
+  height: 15em
+  box-shadow: 0 0 3px #767
+  border-radius: 2px
+
+#wide_cube
+  margin: 0 auto
+  width: 88%
+  background: #bada55
+  margin: 0.2em
+  text-align: center
+  border-radius: 2px
+
+.notice
+  color: green
+  cursor: not-allowed
+  text-align: center
+  animation: blinka 1s steps(30, start) infinite
+  @keyframes blinka
+    0%
+      color: white
+    40%
+      color: green
+    100%
+      color: white
+
+.alert
+  color: orange
+  cursor: not-allowed
+  text-align: center
+  animation: blinkb 1s steps(30, start) infinite
+  @keyframes blinkb
+    0%
+      color: white
+    40%
+      color: orange
+    100%
+      color: white
+
+.error
+  color: red
+  cursor: not-allowed
+  text-align: center
+  animation: blinkc 1s steps(30, start) infinite
+  @keyframes blinkc
+    0%
+      color: white
+    40%
+      color: red
+    100%
+      color: white
+
+.big
+  font-size: 5em
+
+.small
+  font-size: 0.8em
+
+.orange
+  background: rgb(244, 112, 12)
+  color: white
+
+.red
+  background: darken(red, 15%)
+  color: white
+
+.green
+  background: darken(green, 5%)
+  color: white
+
+.blue
+  background: darken(blue, 25%)
+  color: white
+
+.purple
+  background: darken(purple, 15%)
+  color: white
+
+.gold
+  background: rgb(111, 102, 121)
+  color: white

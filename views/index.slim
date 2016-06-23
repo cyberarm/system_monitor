@@ -1,0 +1,47 @@
+doctype html
+html
+  head
+    title #{@hostname} Health Monitor
+    meta http-equiv="refresh" content="5"
+    link href="/css/app.css" rel="stylesheet" type="text/css"
+  body
+    center
+      #wide_cube
+        h1.big #{@hostname}
+        p.small Last refreshed: #{Time.now.strftime('%c %Z')} -  Refreshes every 5 seconds
+    #container
+      #cube_container
+        #cube class="orange"
+          h1 Uptime:
+          hr
+          p #{((@vmstat.at-@vmstat.boot_time)/60/60).round(3)} hours
+        #cube class="gold"
+          h1 Addresses
+          hr
+          - addr_infos = Socket.ip_address_list
+          - addr_infos.each do |a|
+            - next unless a.ip_address.start_with?('192')
+            p Local IP: #{a.ip_address}
+          p Remote IP: #{$remote_ip}
+      #cube_container
+        #cube class="green"
+          h1 Load Average
+          hr
+          h1.big #{((@vmstat.load_average.one_minute/@vmstat.cpus.count)*100.0).round(1)}%
+          h3 #{@vmstat.load_average.one_minute}
+        #cube class="blue"
+          h1 Network Load
+          hr
+          p #{@network_usage.round(2)} Kbp/s
+          h3.notice FAULTY
+          
+      #cube_container
+        #cube class="red"
+          h1 CPU Temperature
+          hr
+          p Warmest Core: #{@cpu_temp.round(2)} F | #{(((@cpu_temp-32)*5)/9).round(2)} C
+        #cube class="purple"
+          h1 Free RAM
+          hr
+          h1 #{((@vmstat.memory.free)/0.125/1000.0/1.0).round(3)} MB
+          h3.notice FAULTY
