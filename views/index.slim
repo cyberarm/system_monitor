@@ -14,7 +14,7 @@ html
         #cube class="orange"
           h1 Uptime:
           hr
-          p #{((@vmstat.at-@vmstat.boot_time)/60/60).round(3)} hours
+          h1 #{Keystore.uptime}
         #cube class="gold"
           h1 Addresses
           hr
@@ -22,26 +22,27 @@ html
           - addr_infos.each do |a|
             - next unless a.ip_address.start_with?('192')
             p Local IP: #{a.ip_address}
-          p Remote IP: #{$remote_ip}
+          p Remote IP: #{Keystore.remote_ip}
+          
       #cube_container
         #cube class="green"
           h1 Load Average
           hr
           h1.big #{((@vmstat.load_average.one_minute/@vmstat.cpus.count)*100.0).round(1)}%
-          h3 #{@vmstat.load_average.one_minute}
+          p #{@vmstat.load_average.one_minute}
+          p Number of Cores: #{@vmstat.cpus.count}
         #cube class="blue"
           h1 Network Load
           hr
-          p #{@network_usage.round(2)} Kbp/s
-          h3.notice FAULTY
+          h1 #{((@network_usage/0.125)/1000.0).round(2)} Kbp/s
           
       #cube_container
         #cube class="red"
           h1 CPU Temperature
           hr
-          p Warmest Core: #{@cpu_temp.round(2)} F | #{(((@cpu_temp-32)*5)/9).round(2)} C
+          h1 #{@cpu_temp.round(2)} F | #{(((@cpu_temp-32)*5)/9).round(2)} C
         #cube class="purple"
-          h1 Free RAM
+          h1 RAM Usage
           hr
-          h1 #{((@vmstat.memory.free)/0.125/1000.0/1.0).round(3)} MB
-          h3.notice FAULTY
+          h1.big #{Keystore.ram_percentage.round(2)}%
+          p #{Keystore.ram_usage}
