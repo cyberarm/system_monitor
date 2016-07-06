@@ -12,12 +12,14 @@ Keystore = OpenStruct.new
 Keystore.last_net_in  = 0.0
 Keystore.last_net_out = 0.0
 Keystore.total_net    = 0.0
-Keystore.net_interface= "enp2s0"
+Keystore.net_interface= "eth0"
 Keystore.remote_ip    = ""
 
 Keystore.ram_percentage = 0.0
 Keystore.ram_usage = 0.0
 Keystore.uptime = "0"
+
+# `export PATH="$PATH:/sbin"`
 
 def check_temp
   temp = `sensors -f | grep 'Core'`
@@ -28,7 +30,7 @@ def check_temp
 end
 
 def calc_network_load
-  network_usage = `ifconfig #{@network_interface} | grep "TX bytes"`
+  network_usage = `ifconfig #{Keystore.network_interface} | grep "TX bytes"`
   list = network_usage.split(":")
   Keystore.net_in  = list[1].split(" ").first.to_i
   Keystore.net_out = list[3].split(" ").first.to_i
@@ -100,3 +102,4 @@ end
 get "/css/app.css" do
   sass :application
 end
+
