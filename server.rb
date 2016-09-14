@@ -70,12 +70,26 @@ def system_uptime(vmstat)
   string = ""
   case
   when uptime <= 23.9
-    string = "#{uptime} Hours"
+    string = "#{uptime.round(2)} Hours"
   when uptime > 23.9
     string = "#{(uptime/24).round(2)} Days"
   end
 
   Keystore.uptime = string
+end
+
+def time_until_event(time)
+  event_time = Time.parse("#{time}")
+  time_until = ((event_time.to_i-Time.now.to_i).to_f / (24 * 60 * 60)).round(4)
+  if time_until > 6.00
+    "#{time_until} days."
+  elsif time_until.between?(0.0, 6.1)
+    "#{((event_time-Time.now)/60/60).round(4)} hours away."
+  elsif time_until.between?(0.4, -0.0)
+    "On going."
+  else
+    "Past."
+  end
 end
 
 Thread.new do
